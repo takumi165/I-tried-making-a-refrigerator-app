@@ -1,16 +1,17 @@
 package main;
 
-import util.InputUtil;
+import service.Service;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		//System.out.println(InputUtil.Inputcommand());
+		Service serice = new Service();
+		serice.addStock();
 		
-		while (true) {
+		/*while (true) {
 			
-			int command = InputUtil.Inputcommand();
+			String command = InputUtil.InputString();
 			if (command == 1) {
 				System.out.println("#1");
 			} else if (command == 2) {
@@ -22,7 +23,8 @@ public class Main {
 			} else if (command == -1) {
 				System.out.println("数字を入力してください");
 			}
-		}
+			
+		}*/
 	}
 
 }
