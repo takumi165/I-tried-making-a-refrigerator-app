@@ -1,30 +1,30 @@
 package main;
 
 import service.Service;
+import util.InputUtil;
 
 public class Main {
 
 	public static void main(String[] args) {
+		Service crud = new Service();
 		
-		Service serice = new Service();
-		serice.addStock();
+		crud.loadStocks();;
+		crud.showStocks();
 		
-		/*while (true) {
-			
-			String command = InputUtil.InputString();
+		while (true) {
+			int command = InputUtil.InputInt();
 			if (command == 1) {
+				crud.addStock();
 				System.out.println("#1");
 			} else if (command == 2) {
+				crud.showStocks();
 				System.out.println("#2");
 			} else if (command == 3) {
+				//crud.test();
 				System.out.println("#3");
-			} else if (command == 0) {
-				System.out.println("無効な数値です");
-			} else if (command == -1) {
-				System.out.println("数字を入力してください");
-			}
+			} 
 			
-		}*/
+		}
 	}
 
 }

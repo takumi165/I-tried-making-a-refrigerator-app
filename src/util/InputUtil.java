@@ -99,7 +99,15 @@ public class InputUtil {
 			}
 		} 
 		
-		
 	}
 	
+	public static int CSVinputInt(String intdata) {
+			try {
+				return Integer.parseInt(intdata);
+			} catch (NumberFormatException e) {
+				System.out.println("不正なデータのため読み飛ばしました");
+				return 0;
+			}
+		
+	}
 }
