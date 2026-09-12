@@ -2,6 +2,8 @@ package util;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -38,7 +40,7 @@ public class InputUtil {
 		}
 	}
 	
-	public  static String InputName() {
+	public  static String inputName() {
 		while (true) {
 			System.out.println("商品名を入力してください");
 			String inputName = InputString();
@@ -49,6 +51,18 @@ public class InputUtil {
 			return inputName;
 		}
 		
+	}
+	
+	public static int inputQuantity() {
+		while (true) {
+			System.out.println("在庫数を入力してください");
+			int inputQuantity = InputInt();
+			if (inputQuantity >= 0 && inputQuantity <= 2000) {
+				return inputQuantity;
+			} else {
+				System.out.println("0~2000の間で入力してください");
+			}
+		}
 	}
 	
 	public static LocalDate inputLocalDate() {
@@ -71,7 +85,6 @@ public class InputUtil {
 			} else {
 				System.out.println("無効な数値です");
 			}
-		
 		}
 	}
 	
@@ -85,7 +98,6 @@ public class InputUtil {
 				System.out.println("無効な数値です");
 			}
 		}
-		
 	}
 	
 	public static int inputDay() {
@@ -101,13 +113,12 @@ public class InputUtil {
 		
 	}
 	
-	public static int CSVinputInt(String intdata) {
-			try {
-				return Integer.parseInt(intdata);
-			} catch (NumberFormatException e) {
-				System.out.println("不正なデータのため読み飛ばしました");
-				return 0;
-			}
-		
+	public static int CSVloadInt(String intdata) throws NumberFormatException{
+		return Integer.parseInt(intdata);
+	}
+	
+	
+	public static LocalDate CSVloadLocalDate(String localdate) throws DateTimeParseException{
+		return LocalDate.parse(localdate, DateTimeFormatter.BASIC_ISO_DATE);
 	}
 }
