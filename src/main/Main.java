@@ -10,7 +10,7 @@ public class Main {
 		
 		crud.loadStocks();
 		showMenu();
-		System.out.println(crud.increasesID());
+
 		
 		while (true) {
 			System.out.print("command> ");
@@ -18,13 +18,17 @@ public class Main {
 			
 			if (command == 1) {
 				crud.addStock();
-				System.out.println("#1");
+				crud.saveFile();
+				System.out.println("#1\n");
 			} else if (command == 2) {
 				crud.showStocks();
 				System.out.println("#2");
 			} else if (command == 3) {
-				crud.saveFile();
+				crud.updateStock();
 				System.out.println("#3");
+			} else if (command == 4) {
+				crud.deleteData();
+				System.out.println("#4");
 			} 
 			
 		}

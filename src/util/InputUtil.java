@@ -2,8 +2,6 @@ package util;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -112,13 +110,5 @@ public class InputUtil {
 		} 
 		
 	}
-	
-	public static int CSVloadInt(String intdata) throws NumberFormatException{
-		return Integer.parseInt(intdata);
-	}
-	
-	
-	public static LocalDate CSVloadLocalDate(String localdate) throws DateTimeParseException{
-		return LocalDate.parse(localdate, DateTimeFormatter.BASIC_ISO_DATE);
-	}
+
 }
