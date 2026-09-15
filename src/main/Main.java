@@ -9,37 +9,37 @@ public class Main {
 		Service crud = new Service();
 		
 		crud.loadStocks();
-		showMenu();
-
 		
 		while (true) {
+			showMenu();
 			System.out.print("command> ");
 			int command = InputUtil.InputInt();
-			
+			System.out.println();
 			if (command == 1) {
 				crud.addStock();
 				crud.saveFile();
-				System.out.println("#1\n");
 			} else if (command == 2) {
 				crud.showStocks();
-				System.out.println("#2");
 			} else if (command == 3) {
 				crud.updateStock();
-				System.out.println("#3");
+				crud.saveFile();
 			} else if (command == 4) {
 				crud.deleteData();
-				System.out.println("#4");
-			} 
+				crud.saveFile();
+			} else if (command == 5) {
+				break;
+			}
 			
 		}
 	}
 	
 	public static void showMenu() {
-		System.out.println("=====Menu=====");
+		System.out.println("======Menu======");
 		System.out.println("1:在庫データを追加");
 		System.out.println("2:一覧を表示");
 		System.out.println("3:データを編集");
-		System.out.println("4:データの削除\n");
+		System.out.println("4:データの削除");
+		System.out.println("5:終了\n");
 	}
 
 }

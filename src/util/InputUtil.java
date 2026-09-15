@@ -9,27 +9,13 @@ public class InputUtil {
 	static Scanner inputScanner = new Scanner(System.in);
 	
 	public static String InputString() {
-		String inputString = inputScanner.next();
+		String inputString = inputScanner.nextLine();
 		return inputString;
 	}
 	
-	/*public static int  InputInt() {
-		while (true) {
-			try {
-				System.out.println("数字を入力");
-				int inputInt = inputScanner.nextInt();
-				return inputInt;
-			} catch (InputMismatchException e) {
-				System.out.println("数字を入力してください");
-				inputScanner.next();
-			}
-		}
-		
-	}*/
-	
 	public static int  InputInt() {
 		while (true) {
-			String inputInt = inputScanner.next();
+			String inputInt = inputScanner.nextLine();
 			try {
 				return Integer.parseInt(inputInt);
 			} catch (NumberFormatException e) {
@@ -63,12 +49,25 @@ public class InputUtil {
 		}
 	}
 	
-	public static LocalDate inputLocalDate() {
+	public static LocalDate inputPurchaseDate() {
+		System.out.println("購入日を入力します");
 		while (true) {
 			try {
 				return LocalDate.of(inputYear(), inputMonth(), inputDay());
 			} catch (Exception e) {
-				System.out.println("エラー");
+				System.out.println("もう一度お試しください");
+			} 
+		}
+		
+	}
+	
+	public static LocalDate inputExpirationDate() {
+		System.out.println("消費期限を設定します");
+		while (true) {
+			try {
+				return LocalDate.of(inputYear(), inputMonth(), inputDay());
+			} catch (Exception e) {
+				System.out.println("もう一度お試しください");
 			} 
 		}
 		
@@ -76,37 +75,73 @@ public class InputUtil {
 	
 	public static int inputYear() {
 		while (true) {
-			System.out.println("年を入力してください");
-			int inputYear = InputInt();
-			if (inputYear >= LocalDate.now().getYear() && inputYear <= LocalDate.now().getYear() +5 ) {
-				return inputYear;
+			System.out.println("年を入力してください　入力しない場合は現在の年が入力されます");
+			String inputYear = inputScanner.nextLine();
+			if (inputYear.isEmpty()) {
+				System.out.println(LocalDate.now().getYear());
+				return LocalDate.now().getYear();
 			} else {
-				System.out.println("無効な数値です");
+				try {
+					int yearint = Integer.parseInt(inputYear);
+					if (yearint >= LocalDate.now().getYear() && yearint <= LocalDate.now().getYear() +5 ) {
+						return yearint;
+					} else {
+						System.out.println("無効な数値です");
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("数字を入力してください");
+				}
+				
 			}
+			
 		}
 	}
 	
 	public static int inputMonth() {
 		while (true) {
-			System.out.println("月を入力してください");
-			int inputMonth = InputInt();
-			if (inputMonth >= 1 && inputMonth <= 12 ) {
-				return inputMonth;
+			System.out.println("月を入力してください　入力しない場合は現在の月が入力されます");
+			String inputMonth = inputScanner.nextLine();
+			if (inputMonth.isEmpty()) {
+				System.out.println(LocalDate.now().getMonthValue());
+				return LocalDate.now().getMonthValue();
 			} else {
-				System.out.println("無効な数値です");
+				try {
+					int monthint = Integer.parseInt(inputMonth);
+					if (monthint >= 1 && monthint <= 12 ) {
+						return monthint;
+					} else {
+						System.out.println("無効な数値です");
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("数字を入力してください");
+				}
+				
 			}
+			
 		}
 	}
 	
 	public static int inputDay() {
 		while (true) {
-			System.out.println("日を入力してください");
-			int inputDay = InputInt();
-			if (YearMonth.now().isValidDay(inputDay)) {
-				return inputDay;
-			}else {
-				System.out.println("無効な数値です");
+			System.out.println("日を入力してください　入力しない場合は現在の日が入力されます");
+			String inputDay = inputScanner.nextLine();
+			if (inputDay.isEmpty()) {
+				System.out.println(LocalDate.now().getDayOfMonth());
+				return LocalDate.now().getDayOfMonth();
+			} else {
+				try {
+					int dayint = Integer.parseInt(inputDay);
+					if (YearMonth.now().isValidDay(dayint)) {
+						return dayint;
+					}else {
+						System.out.println("無効な数値です");
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("数字を入力してください");
+				}
+				
 			}
+			
 		} 
 		
 	}

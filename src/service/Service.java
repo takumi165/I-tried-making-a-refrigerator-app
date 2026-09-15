@@ -67,8 +67,9 @@ public class Service {
 		
 		//ファイルが正常に読み込まれた時だけデータを変換する
 		public void loadStocks() {
-			if (loadFile() != null) {
-				convertList(loadFile());
+			List<String> file = loadFile();
+			if (file != null) {
+				convertList(file);
 			} else {
 				//ファイルが読み込めないうちに新しくデータを作成してファイルが壊れないようにするため　
 				System.out.println("データ保護のためプログラムを終了します");
@@ -108,7 +109,13 @@ public class Service {
 		
 		//商品データを追加
 		public void addStock() {
-			stocks.add(new Stock(increasesID(), InputUtil.inputName(), InputUtil.inputQuantity(), LocalDate.now(), InputUtil.inputLocalDate()));
+			stocks.add(new Stock(
+					increasesID(), 
+					InputUtil.inputName(), 
+					InputUtil.inputQuantity(), 
+					InputUtil.inputPurchaseDate(), 
+					InputUtil.inputExpirationDate()
+					));
 		}
 		
 		//商品データのIDを自動で加算
@@ -161,10 +168,10 @@ public class Service {
 					editedData.setStock(InputUtil.inputQuantity());
 				} else if (datanum == 3) {
 					System.out.println("購入日を変更します");
-					editedData.setPurchaseDate(InputUtil.inputLocalDate());
+					editedData.setPurchaseDate(InputUtil.inputPurchaseDate());
 				} else if (datanum == 4) {
 					System.out.println("消費期限を変更します");
-					editedData.setExpirationDate(InputUtil.inputLocalDate());
+					editedData.setExpirationDate(InputUtil.inputExpirationDate());
 				} else if (datanum == 5) {
 					System.out.println("キャンセル");
 				}
@@ -182,6 +189,7 @@ public class Service {
 				int yesno = InputUtil.InputInt();
 				if (yesno == 1) {
 					stocks.remove(deletstockID);
+					System.out.println("正常に削除されました");
 				}
 			}
 		}
