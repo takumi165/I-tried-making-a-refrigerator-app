@@ -71,7 +71,7 @@ public class Stock {
 
 	@Override
 	public String toString() {
-		return "ID:" + id + "品名:" + name + "在庫数:" + stock + "購入日:" + purchaseDate + "消費期限:" + expirationDate;
+		return "ID:" + id + " 品名:" + name + " 在庫数:" + stock + " 購入日:" + purchaseDate + " 消費期限:" + expirationDate;
 	}
 	
 	

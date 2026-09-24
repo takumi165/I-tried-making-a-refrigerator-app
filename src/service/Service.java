@@ -16,11 +16,11 @@ import model.Stock;
 import util.InputUtil;
 
 public class Service { 
-		Path datacsv = Paths.get("/Applications/Eclipse_2026-03.app/Contents/workspace/I tried making a refrigerator app/data.csv");
-		Path tmpcsv = Paths.get("/Applications/Eclipse_2026-03.app/Contents/workspace/I tried making a refrigerator app/data.csv.tmp");
-		Path nextidtext = Paths.get("/Applications/Eclipse_2026-03.app/Contents/workspace/I tried making a refrigerator app/next_id.txt");
+		private Path datacsv = Paths.get("/Applications/Eclipse_2026-03.app/Contents/workspace/I tried making a refrigerator app/data.csv");
+		private Path tmpcsv = Paths.get("/Applications/Eclipse_2026-03.app/Contents/workspace/I tried making a refrigerator app/data.csv.tmp");
+		private Path nextidtext = Paths.get("/Applications/Eclipse_2026-03.app/Contents/workspace/I tried making a refrigerator app/next_id.txt");
 		
-		ArrayList<Stock> stocks = new ArrayList<Stock>();
+	 	private ArrayList<Stock> stocks = new ArrayList<Stock>();
 		
 		//ファイルの読み込み
 		public List<String> loadFile() {
@@ -112,10 +112,11 @@ public class Service {
 			stocks.add(new Stock(
 					increasesID(), 
 					InputUtil.inputName(), 
-					InputUtil.inputQuantity(), 
+					InputUtil.inputamount(), 
 					InputUtil.inputPurchaseDate(), 
 					InputUtil.inputExpirationDate()
 					));
+			saveFile();
 		}
 		
 		//商品データのIDを自動で加算
@@ -135,16 +136,26 @@ public class Service {
 		//一覧表示
 		public void showStocks() {
 			for (Stock stock : stocks) {
-				System.out.println(stock);
+				System.out.print(stock);
+				if (stock.getStock() == 1) {
+					System.out.println(" 在庫数低下");
+				} else if (stock.getStock() == 0) {
+					System.out.println(" 在庫がありません");
+				}
+				if (stock.getExpirationDate().isAfter(LocalDate.now()) && stock.getExpirationDate().isBefore(LocalDate.now().plusDays(7))) {
+					System.out.println(" 消費期限が近づいています");
+				} else if (stock.getExpirationDate().isBefore(LocalDate.now()) || stock.getExpirationDate().isEqual(LocalDate.now())) {
+					System.out.println(" 消費期限が切れています");
+				}
 			}
+			System.out.println();
 		}
 		
 		//IDからオブジェクトを検索
-		public Stock findId() {
+		public Stock findById() {
 			int inputId = InputUtil.InputInt();
 			for (Stock stockData : stocks) {
 				if (stockData.getId() == inputId) {
-					System.out.println(inputId);
 					return stockData;
 				}
 			}
@@ -154,7 +165,7 @@ public class Service {
 		
 		public void updateStock() {
 			System.out.println("編集したいデータのIDを入力してください");
-			Stock editedData = findId();
+			Stock editedData = findById();
 			if (editedData != null) {
 				System.out.println(editedData);
 				System.out.println("編集したいデータを選択してください");
@@ -165,7 +176,7 @@ public class Service {
 					editedData.setName(InputUtil.inputName());
 				}  else if (datanum == 2) {
 					System.out.println("在庫数を変更します");
-					editedData.setStock(InputUtil.inputQuantity());
+					editedData.setStock(InputUtil.inputamount());
 				} else if (datanum == 3) {
 					System.out.println("購入日を変更します");
 					editedData.setPurchaseDate(InputUtil.inputPurchaseDate());
@@ -174,24 +185,65 @@ public class Service {
 					editedData.setExpirationDate(InputUtil.inputExpirationDate());
 				} else if (datanum == 5) {
 					System.out.println("キャンセル");
+				} else {
+					System.out.println("無効な選択肢です");
 				}
 			}
-			
+			saveFile();
 		}
 		
 		public void deleteData() {
 			System.out.println("削除するデータのIDを選択してください");
-			Stock deletstockID = findId();
-			if (deletstockID != null) {
-				System.out.println("以下のデータを削除します");
-				System.out.println(deletstockID);
-				System.out.println("1:はい 2:いいえ");
-				int yesno = InputUtil.InputInt();
-				if (yesno == 1) {
-					stocks.remove(deletstockID);
-					System.out.println("正常に削除されました");
+			Stock deletstockID = findById();
+			while (true) {
+				if (deletstockID != null) {
+					System.out.println("以下のデータを削除します");
+					System.out.println(deletstockID);
+					System.out.println("1:はい 1以外:いいえ");
+					int yesno = InputUtil.InputInt();
+					if (yesno == 1) {
+						stocks.remove(deletstockID);
+						System.out.println("正常に削除されました");
+						saveFile();
+					} else {
+						System.out.println("削除をキャンセルしました");
+					}
+				} else {
+					System.out.println("存在しないIDです");
+					break;
+				}
+				
+			}
+			
+		}
+		
+		//在庫数を変更する
+		public void amountManage() {
+			System.out.println("在庫数を減らす商品IDを入力してください"); 
+			Stock stock = findById();
+			while (true) {
+				if (stock != null) {
+					int before = stock.getStock();
+					int amount = InputUtil.inputreduceamount();
+					int after = before - amount;
+					
+					if (after >= 0) {
+						stock.setStock(after);
+						System.out.println("変更前:" + before + "→" +  "変更後:" + after+ "\n");
+						saveFile();
+						break;
+					} else {
+						System.out.println("在庫数が0以上になるようにしてください");
+					}
+				} else {
+					System.out.println("存在しないIDです");
+					break;
 				}
 			}
+			
+			
 		}
+		
+		
 	
 }

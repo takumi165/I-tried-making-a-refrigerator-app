@@ -17,17 +17,18 @@ public class Main {
 			System.out.println();
 			if (command == 1) {
 				crud.addStock();
-				crud.saveFile();
 			} else if (command == 2) {
-				crud.showStocks();
+				crud.amountManage();
 			} else if (command == 3) {
 				crud.updateStock();
-				crud.saveFile();
 			} else if (command == 4) {
 				crud.deleteData();
-				crud.saveFile();
 			} else if (command == 5) {
+				crud.showStocks();
+			} else if (command == 6){
 				break;
+			} else {
+				System.out.println("無効な選択肢です");
 			}
 			
 		}
@@ -36,10 +37,11 @@ public class Main {
 	public static void showMenu() {
 		System.out.println("======Menu======");
 		System.out.println("1:在庫データを追加");
-		System.out.println("2:一覧を表示");
+		System.out.println("2:在庫数を減らす");
 		System.out.println("3:データを編集");
 		System.out.println("4:データの削除");
-		System.out.println("5:終了\n");
+		System.out.println("5:一覧を表示");
+		System.out.println("6:終了\n");
 	}
 
 }

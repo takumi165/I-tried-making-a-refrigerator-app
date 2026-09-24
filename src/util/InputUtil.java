@@ -37,7 +37,7 @@ public class InputUtil {
 		
 	}
 	
-	public static int inputQuantity() {
+	public static int inputamount() {
 		while (true) {
 			System.out.println("在庫数を入力してください");
 			int inputQuantity = InputInt();
@@ -45,6 +45,18 @@ public class InputUtil {
 				return inputQuantity;
 			} else {
 				System.out.println("0~2000の間で入力してください");
+			}
+		}
+	}
+	
+	public static int inputreduceamount() {
+		while (true) {
+			System.out.println("数量を入力してください");
+			int inputQuantity = InputInt();
+			if (inputQuantity >= 0 ) {
+				return inputQuantity;
+			} else {
+				System.out.println("0以下は入力できません");
 			}
 		}
 	}
