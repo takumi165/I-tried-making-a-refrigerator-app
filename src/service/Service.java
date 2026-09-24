@@ -138,17 +138,18 @@ public class Service {
 			for (Stock stock : stocks) {
 				System.out.print(stock);
 				if (stock.getStock() == 1) {
-					System.out.println(" 在庫数低下");
+					System.out.print(" 在庫数低下");
 				} else if (stock.getStock() == 0) {
-					System.out.println(" 在庫がありません");
+					System.out.print(" 在庫がありません");
 				}
 				if (stock.getExpirationDate().isAfter(LocalDate.now()) && stock.getExpirationDate().isBefore(LocalDate.now().plusDays(7))) {
-					System.out.println(" 消費期限が近づいています");
+					System.out.print(" 消費期限が近づいています");
 				} else if (stock.getExpirationDate().isBefore(LocalDate.now()) || stock.getExpirationDate().isEqual(LocalDate.now())) {
-					System.out.println(" 消費期限が切れています");
+					System.out.print(" 消費期限が切れています");
 				}
+				System.out.println("");
 			}
-			System.out.println();
+			System.out.println("");
 		}
 		
 		//IDからオブジェクトを検索
