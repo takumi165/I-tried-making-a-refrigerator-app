@@ -13,16 +13,16 @@ public class Main {
 		while (true) {
 			showMenu();
 			System.out.print("command> ");
-			int command = InputUtil.InputInt();
+			int command = InputUtil.readRawInt();
 			System.out.println();
 			if (command == 1) {
 				crud.addStock();
 			} else if (command == 2) {
-				crud.amountManage();
+				crud.reduceStock();
 			} else if (command == 3) {
 				crud.updateStock();
 			} else if (command == 4) {
-				crud.deleteData();
+				crud.deleteStock();
 			} else if (command == 5) {
 				crud.showStocks();
 			} else if (command == 6){
