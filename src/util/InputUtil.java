@@ -8,12 +8,12 @@ public class InputUtil {
 	//入力受付
 	static Scanner inputScanner = new Scanner(System.in);
 	
-	public static String InputString() {
+	public static String readLine() {
 		String inputString = inputScanner.nextLine();
 		return inputString;
 	}
 	
-	public static int  InputInt() {
+	public static int  readRawInt() {
 		while (true) {
 			String inputInt = inputScanner.nextLine();
 			try {
@@ -27,7 +27,7 @@ public class InputUtil {
 	public  static String inputName() {
 		while (true) {
 			System.out.println("商品名を入力してください");
-			String inputName = InputString();
+			String inputName = readLine();
 			if (!inputName.matches("^[\\p{IsHan}\\p{IsHiragana}\\p{IsKatakana}ー]+$")) {
 				System.out.println("記号や数字は使用できません");
 	            continue;
@@ -37,10 +37,10 @@ public class InputUtil {
 		
 	}
 	
-	public static int inputamount() {
+	public static int inputAmount() {
 		while (true) {
 			System.out.println("在庫数を入力してください");
-			int inputQuantity = InputInt();
+			int inputQuantity = readRawInt();
 			if (inputQuantity >= 0 && inputQuantity <= 2000) {
 				return inputQuantity;
 			} else {
@@ -52,7 +52,7 @@ public class InputUtil {
 	public static int inputreduceamount() {
 		while (true) {
 			System.out.println("数量を入力してください");
-			int inputQuantity = InputInt();
+			int inputQuantity = readRawInt();
 			if (inputQuantity >= 0 ) {
 				return inputQuantity;
 			} else {
