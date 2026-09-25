@@ -196,27 +196,26 @@ public class Service {
 		public void deleteStock() {
 			System.out.println("削除するデータのIDを選択してください");
 			Stock stockToDelete = findById();
-			while (true) {
-				if (stockToDelete != null) {
-					System.out.println("以下のデータを削除します");
-					System.out.println(stockToDelete);
-					System.out.println("1:はい 1以外:いいえ");
-					int confirmInput = InputUtil.readRawInt();
-					if (confirmInput == 1) {
-						stocks.remove(confirmInput);
-						System.out.println("正常に削除されました");
-						saveFile();
-					} else {
-						System.out.println("削除をキャンセルしました");
-					}
+			if (stockToDelete != null) {
+				System.out.println("以下のデータを削除します");
+				System.out.println(stockToDelete);
+				System.out.println("1:はい 1以外:いいえ");
+				int confirmInput = InputUtil.readRawInt();
+				if (confirmInput == 1) {
+					stocks.remove(stockToDelete);
+					System.out.println("正常に削除されました");
+					saveFile();
 				} else {
-					System.out.println("存在しないIDです");
-					break;
+					System.out.println("削除をキャンセルしました");
 				}
+			} else {
+				System.out.println("存在しないIDです");
+				
+			}	
 				
 			}
 			
-		}
+		
 		
 		//在庫数を変更する
 		public void reduceStock() {
